@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="seperator"></div>
+<div class="formCont" id="Auth">
+    <form method="post">
+        <h2 style="margin-bottom: 50px;">LogIn</h2>
+        <input type="text" placeholder="Email" name="Email" required>
+        <input type="password" placeholder="Password" name="Pass1" class="password" required>
+        <h3 id="checkBoxText">Show/Hide Password<input type="checkbox" id="view-pass" checked></h2>
+        <button type="submit" class="contactBtn"><a>Submit</a></button>
+    </form>
+</div>
+<div class="oldAccount" style="margin: 50px;">
+    <h2>New Here?</h2>
+    <a href="{{url_for('auth.sign_in')}}">Sign-Up Instead</a>
+</div>
+<div class="sidebar">
+    <div class="title">Test Title</div>
+    <div class="body">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Consequuntur facere eveniet exercitationem dicta nemo libero dolorem itaque cupiditate magni aliquam necessitatibus quas ex, distinctio blanditiis harum ipsum tenetur dolorum suscipit!</div>
+</div>
+{% endblock %}

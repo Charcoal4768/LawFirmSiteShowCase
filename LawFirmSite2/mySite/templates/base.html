@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <title>{% block title %}Document{% endblock %}</title>
+    {% if play_animation %}
+    <script>
+        sessionStorage.setItem("playCheckmark", "true");
+    </script>
+    {% endif %}
+</head>
+<body>
+    <div class="navbar">
+        <div class="siteLogo">
+            <img src="{{url_for('static',filename='random-logo-png-transparent.png')}}" alt="Icon" height="100px" width="120px">
+        </div>
+        <div class="linkContainer">
+            <ul>
+                <li><a href="{{url_for('views.home')}}">Home</a></li>
+                <li><a href="{{url_for('views.home')}}#contact">Contact</a></li>
+                {% if not user.is_authenticated %}
+                    <li><a href="{{url_for('auth.sign_in')}}">SignUp</a></li>
+                {% else %}
+                    <li><a href="{{url_for('auth.logout')}}">LogOut</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+    <div class="hamburger">
+        <div class="burgerCont" onclick="burgerFunc(this)">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+        </div>
+        <div class="navSideBar" id="sidepanel">
+            <div class="sitelogo"></div>
+            <div class="links">
+                <a href="{{url_for('views.home')}}">Home</a>
+                <a href="{{url_for('views.home')}}#contact">Contact</a>
+                {% if not user.is_authenticated %}
+                    <a href="{{url_for('auth.sign_in')}}">SignUp</a>
+                {% else %}
+                    <a href="{{url_for('auth.logout')}}">LogOut</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="flashCont">
+        {% set counter = 0 %}
+        {% for category, message in get_flashed_messages(with_categories=true) %}
+        {% set counter = counter + 1 %}
+        <div class="flashed {{category}}" id="f-{{counter}}" onclick="removeFlashed(this.id)">
+            <div class="message">{{message|safe}}</div>
+            <div class="message error" style="display: block; margin-left: auto;">&#x2715;</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% block content %}
+    {% endblock %}
+    <div class="footer">
+            <div class="contactDetails">
+                <ul>
+                    <li><div class="phone"></div>Phone: +91 9899947309</li>
+                    <li><div class="email"></div>E-Mail: vkpandey1183@gmail.com</li>
+                    <li><div class="social"></div>FaceBook: VK Pandey</li>
+                </ul>
+            </div>
+            <noscript>
+                <div class="basicCont">
+                <p>You turned off JavaScript</p>
+            </noscript>
+    </div>
+    
+    <script>
+        document.addEventListener("DOMContentLoaded",() => {
+            let checkBox = document.getElementById("view-pass");
+            let checkBoxText = document.getElementById("checkBoxText");
+            let elements = document.getElementsByClassName("password");
+            // let enquiry = document.getElementById("enq");
+            // function toggleEnq(){
+            //     if (enquiry.innerText.length > 50){
+            //         enquiry.classList.toggle("clicked");
+            //         console.log(enquiry.innerText);
+            //     }
+            // }
+            // enquiry.addEventListener("scroll",toggleEnq);
+            checkBox.addEventListener("change",togglePassword);
+            function togglePassword() {
+                if (checkBox.checked){
+                    checkBoxText.innerText = "Password Hidden";
+                    Array.from(elements).forEach(element => {
+                        element.type = "password";
+                        console.log("Hidden");
+                    });
+                }
+                else{
+                    checkBoxText.innerText = "Password not Hidden";
+                    Array.from(elements).forEach(element => {
+                        element.type = "text";
+                        console.log("Showing");
+                    });
+                }
+                checkBoxText.appendChild(checkBox);
+            }});
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded",() => {
+            const things = document.getElementById('Things');
+            const dotCont = document.getElementById("dots");
+            let thingsNo = things.childElementCount;
+            for (let j = 0; j < thingsNo; j++){
+                let dot = document.createElement('div');
+                dot.classList.add('dot');
+                dot.id = "dot"+j;
+                dotCont.appendChild(dot);
+            }
+            function scrollToThing(index) {
+                const vw = window.innerWidth;
+                const thingWidth = Math.min(vw * 0.5, 350); // handles the 50vw maxed at 350px
+                const scrollX = index * thingWidth;
+
+                things.scrollTo({
+                    left: scrollX,
+                    behavior: 'smooth'
+                });
+            }
+            function scrollHorizontally(e) {
+                e = window.event || e;
+                var delta = Math.max(-10, Math.min(10, (e.wheelDelta || -e.detail)));
+                things.scrollLeft -= (delta*20); //Multiplied by 20 so it works (trial n error)
+                e.preventDefault();
+            }
+            let dots = document.getElementsByClassName("dot");
+            for (let i = 0; i < dots.length; i++) {
+                let dot = dots[i];
+                dot.addEventListener("click", () => {
+                    scrollToThing(i);
+                });
+            }
+            if (document.getElementById('Things').addEventListener) {
+                // IE9, Chrome, Safari, Opera
+                document.getElementById('Things').addEventListener("mousewheel", scrollHorizontally, false);
+                // Firefox
+                document.getElementById('Things').addEventListener("DOMMouseScroll", scrollHorizontally, false);
+            } else {
+                // IE 6/7/8
+                document.getElementById('Things').attachEvent("onmousewheel", scrollHorizontally);
+            }
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const container = document.querySelector(".thingsContainer");
+            const firstThing = document.querySelector(".thing");
+
+            if (container && firstThing) {
+                // Function to update container width dynamically
+                const updateWidth = () => {
+                    container.style.width = `${firstThing.offsetWidth}px`;
+                };
+
+                // Initial call to set widtha
+                updateWidth();
+
+                // Observe resizing of `.thing`
+                const resizeObserver = new ResizeObserver(() => {
+                    updateWidth();
+                });
+
+                resizeObserver.observe(firstThing);
+            }
+        });
+
+    </script>
+    <script>
+        function scrollFunc(id) {
+            let a = document.getElementById(id);
+            a.scrollIntoView({ behavior: "smooth"});
+        }
+    </script>
+    <script>
+        function burgerFunc(x) {
+            let a = document.getElementById("sidepanel");
+            x.classList.toggle("change");
+            a.classList.toggle("open");
+        }
+    </script>
+    <script>
+        function removeFlashed(id) {
+            let a = document.getElementById(id);
+            a.remove();
+        }
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            if (window.history.replaceState) {
+                window.history.replaceState(null, null, window.location.href);
+            }
+            if (sessionStorage.getItem("playCheckmark") === "true") {
+                let a = document.getElementById('disc');
+                a.style.display = 'none';
+                sessionStorage.removeItem("playCheckmark"); // clear it so it doesn’t loop
+
+                a = document.getElementById('checkmarkCont');
+                a.style.display = 'block';
+
+                setTimeout(function () {
+                    a.style.display = 'none';
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

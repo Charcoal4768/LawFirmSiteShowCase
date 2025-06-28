@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Account Authorization{% endblock %}
+{% block content %}
+<div class="seperator"></div>
+<div class="formCont" id="Auth">
+    <form method="post">
+        <h2 style="margin-bottom: 50px;">SignUp</h2>
+        <input type="text" placeholder="Email" name="Email">
+        <input type="password" placeholder="Password" name="Pass1" class="password">
+        <input type="password" placeholder="Confirm Password" name="Pass2" class="password">
+        <h3 id="checkBoxText">Password Hidden<input type="checkbox" id="view-pass" title="Test" checked></h2>
+        <button type="submit" class="contactBtn"><a>Submit</a></button>
+    </form>
+</div>
+<div class="sidebar">
+    <div class="title">
+        Random Title Here
+    </div>
+    <div class="body">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.<br/> Delectus debitis quidem, beatae reprehenderit eaque possimus totam corporis ab distinctio placeat magni vitae magnam consequuntur esse necessitatibus pariatur. Dolorem, quia repellendus.
+    </div>
+</div>
+<div class="oldAccount" style="margin: 50px;">
+    <h2>Already a user?</h2>
+    <a href="{{url_for('auth.login')}}">LogIn Instead</a>
+</div>
+{% endblock %}

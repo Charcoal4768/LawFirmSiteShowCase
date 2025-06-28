@@ -1,0 +1,156 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<div class="justice">
+    <div class="lady"></div>
+</div>
+<div class="disclaimerCont js-required" id="disc">
+    <div class="disclaimer">
+        <h2>Disclaimer</h2>
+        <div class="content">
+The Bar Council of India does not permit advertisement or solicitation by advocates in any form or manner.
+By accessing this website, you acknowledge that you are seeking information about me voluntarily. There has been no solicitation or inducement by me.
+This site is for general information only and does not constitute legal advice or advertisement. I am not liable for any actions taken based on its content. All material here is my intellectual property.
+        </div>
+        <div class="contactBtn">
+            <a onclick="removeFlashed('disc')">Acknowledge</a>
+        </div>
+    </div>
+</div>
+<div class="pageLander">
+    <div class="greetCont">
+        <h1>Law-Firm-Name</h1>
+        <h2>You Deserve Justice</h2>
+        <h3>and we are here to provide it</h3>
+        <i class='bx bx-down-arrow-alt' onclick="scrollFunc('mainCont')"></i>
+    </div>
+    <div class="sidebar">
+    <div class="title">
+        Random Title Here
+    </div>
+    <div class="body">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.<br/> Delectus debitis quidem, beatae reprehenderit eaque possimus totam corporis ab distinctio placeat magni vitae magnam consequuntur esse necessitatibus pariatur. Dolorem, quia repellendus.
+    </div>
+</div>
+</div>
+<div class="mainCont" id="mainCont">
+    <div class="contentRow">
+        <div class="basicCont">
+            <div class="eyeCatcher" id="eyeCatcher">
+                <div class="pfpIcon">
+                </div>
+                <h2>Justice with integrity</h2>
+                <div class="content">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laboriosam debitis est dignissimos dolorem? <br/> Id laboriosam sed assumenda culpa saepe beatae voluptatibus quis. Sed sapiente quam atque quo, possimus accusamus? Vitae.
+                </div>
+                <div class="subtext">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. <br/> Est odio ad id minima, veniam ut deserunt! <br/> Odit qui natus dolores provident cumque dicta odio maiores facilis, officia quidem hic ab?
+                </div>
+                <div class="contactBtn">
+                    <a onclick="scrollFunc('contact')">Contact Me</a>
+                </div>
+            </div>
+        </div>
+        <div class="special">
+            <div class="title">
+                <h2>I Specialize in:</h2>
+            </div>
+            <div class="thingsContainer" id="Things">
+                <div class = "thing" id="thing1">
+                    <div class="specialImage"></div>
+                    <div class="label">Criminal Law</div>
+                </div>
+                <div class = "thing" id="thing2">
+                    <div class="specialImage"></div>
+                    <div class="label">Corporate Law</div>
+                </div>
+            </div>
+            <div class="dots js-required" id="dots"></div>
+        </div>
+    </div>
+    <div class="contentRow">
+        <div class="formCont" id="contact">
+            <h2>Contact Me</h2>
+            <form method="post" id="contactForm">
+                {% if not user.is_authenticated %}
+                <input type="text" placeholder="Your Email" name="Email">
+                {% else %}
+                <input type="hidden" value="{{user.email}}" name="LoggedIn">
+                <div class="tooltip">
+                    <input type="text" placeholder="{{user.email}}" name="OtherMail" id="Logged">
+                    <span class="tooltiptext">Your Email was autofilled, type another if you would like to change it.</span>
+                </div>
+                {% endif %}
+                <input type="text" placeholder="Title" name="Title">
+                <textarea class="clicked" placeholder="Enter Your Enquiry" name="Body" id="enq"></textarea>
+                <button type="submit" class="contactBtn"><a>Send</a></button>
+            </form>
+        </div>
+        <div class="basicCont"></div>
+    </div>
+</div>
+<div class="checkmarkCont" style="display: none;" id="checkmarkCont">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 214 214"
+      class="check-circle" id="checkmark">
+      <g fill="none" stroke="currentColor" stroke-width="2">
+        <circle
+          class="semi-transparent"
+          fill="currentColor"
+          opacity="0.15"
+          cx="107"
+          cy="107"
+          r="72"
+        ></circle>
+        <circle
+          class="colored"
+          fill="currentColor"
+          cx="107"
+          cy="107"
+          r="72"
+          opacity="0.8"
+        ></circle>
+        <polyline
+          stroke="#fff"
+          stroke-width="10"
+          points="73.5,107.8 93.7,127.9 142.2,79.4"
+          style="stroke-dasharray: 50%, 50%; stroke-dashoffset: 100%"
+        />
+      </g>
+    </svg>
+    <div class="sidebar">
+        <h1 class="title2">
+            Form Submitted
+        </h1>
+    </div>
+    <div class="blurbox"></div>
+</div>
+<div class="secondaryCont">
+    <div class="fullScreen">
+
+    </div>
+</div>
+<noscript>
+  <style>
+    .js-required {
+      display: none !important;
+    }
+    .thingsContainer::-webkit-scrollbar{
+        display: block;
+    }
+    .thingsContainer{
+        -ms-overflow-style: inherit;  /* Internet Explorer 10+ */
+        scrollbar-width: 10px;  /* Firefox, Safari 18.2+, Chromium 121+ */
+    }
+  </style>
+  <div style="opacity: 0.75; padding: 1em; background: white; text-align: center; position: fixed; top: 50%; left: 0; right: 0; z-index: 999999999; box-shadow: 5px 5px 10px rgba(55, 55, 55, 0.3), -5px -5px 10px rgba(55, 55, 55, 0.3);">
+    <b>Disclaimer:</b> This site needs JavaScript for full functionality. You’ve disabled it, some features may break.
+  </div>
+  <div class="content" style="display: block; padding: 15px; margin-bottom: 5em; text-align: center; width: 80%; margin-left: auto; margin-right: auto;">
+The Bar Council of India does not permit advertisement or solicitation by advocates in any form or manner.
+By accessing this website, you acknowledge that you are seeking information about me voluntarily. There has been no solicitation or inducement by me.
+This site is for general information only and does not constitute legal advice or advertisement. I am not liable for any actions taken based on its content. All material here is my intellectual property.
+  </div>
+</noscript>
+{% endblock %}
